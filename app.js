@@ -115,6 +115,8 @@ var wineGlass = new Product('Designer Wine Glass', 'img/wine-glass.jpg');
 //elements
 var displayArea = document.getElementById('display-area');
 
+display();
+
 var productImage1 = document.getElementById('image1');
 productImage1.addEventListener('click', handleClick);
 
@@ -123,5 +125,3 @@ productImage2.addEventListener('click', handleClick);
 
 var productImage3 = document.getElementById('image3');
 productImage3.addEventListener('click', handleClick);
-
-display();
