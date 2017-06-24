@@ -3,4 +3,10 @@
   width: 200px;
   margin: 40px;
   border:2px solid black;
+  display: inline-block;
+}
+
+.images {
+  height: inherit;
+  width: inherit;
 }
