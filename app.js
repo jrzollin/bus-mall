@@ -18,9 +18,9 @@ function display(){
 
   while(repeat === true || previousRepeat1 === true || previousRepeat2 === true || previousRepeat3 === true){
     //generates 3 numbers
-    var number1 = Math.round(Math.random() * 19);
-    var number2 = Math.round(Math.random() * 19);
-    var number3 = Math.round(Math.random() * 19);
+    number1 = Math.round(Math.random() * 19);
+    number2 = Math.round(Math.random() * 19);
+    number3 = Math.round(Math.random() * 19);
 
     console.log('first number: ' + number1);
     console.log('second number: ' + number2);
@@ -56,11 +56,19 @@ function display(){
     }
   }
 
+  //replace previously displayed numbers in array
   console.log('previous numbers: ' + previousDisplay);
   previousDisplay.splice(0, 1, number1);
   previousDisplay.splice(1, 1, number2);
   previousDisplay.splice(2, 1, number3);
 
+  //add to shown count
+  products[number1].shown ++;
+  products[number2].shown ++;
+  products[number3].shown ++;
+  console.log(products[number1]);
+  console.log(products[number2]);
+  console.log(products[number3]);
 
   //check for and remove previous display
   if(document.getElementById('exhibit1')){
@@ -138,6 +146,7 @@ function display(){
   image3TextEl.textContent = products[number3]['name'];
   exhibit3.appendChild(image3TextEl);
 
+  //add event listeners
   var productImage1 = document.getElementById('image1');
   productImage1.addEventListener('click', handleClick);
 
@@ -149,11 +158,27 @@ function display(){
 }
 
 function handleClick(event){
-  event.preventDefault();
+  //add to total clicks
+  totalClicks ++;
+
+  //add to clicked for displayed object
+  if(event.target.id === 'image1'){
+    products[number1].clicked ++;
+  } else if(event.target.id === 'image2'){
+    products[number2].clicked ++;
+  } else if(event.target.id === 'image3'){
+    products[number3].clicked ++;
+  }
+  console.log(event.target.id);
   display();
 }
 
 //variables=====================================================================
+
+var totalClicks = 0;
+var number1 = 0;
+var number2 = 0;
+var number3 = 0;
 
 //arrays
 var products = [];
