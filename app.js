@@ -40,7 +40,6 @@ function display(){
     console.log('second number: ' + number2);
     console.log('third number: ' + number3);
 
-
     //checks if the 3 numbers repeat
     if(number1 !== number2 && number1 !== number3 && number2 !== number3){
       repeat = false;
@@ -109,7 +108,6 @@ function display(){
   image1TextEl.textContent = products[number1]['name'];
   exhibit1.appendChild(image1TextEl);
 
-
   //check for and remove previous display
   if(document.getElementById('exhibit2')){
     var child = document.getElementById('exhibit2');
@@ -169,12 +167,15 @@ function display(){
 
   var productImage3 = document.getElementById('image3');
   productImage3.addEventListener('click', handleClick);
+
+  //end survey
+  if(totalClicks === 25){
+      results();
+    }
 }
 
 //on click function
 function handleClick(event){
-  if(totalClicks < 25){
-
     //add to total clicks
     totalClicks ++;
     console.log('total clicks: ' + totalClicks);
@@ -189,11 +190,8 @@ function handleClick(event){
     }
     console.log(event.target.id);
 
+    //rerun display
     display();
-
-  } else {
-    results();
-  }
 }
 
 //show results page
@@ -237,7 +235,7 @@ function results(){
     //check if not shown
     if(products[i]['shown'] !== 0){
 
-    //create Div
+      //create Div
       var divEl = document.createElement('div');;
       divEl.setAttribute('class', 'product-results');
       displayArea.appendChild(divEl);
