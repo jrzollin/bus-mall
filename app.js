@@ -229,45 +229,49 @@ function results(){
   products.sort(function(a,b){
     var x = a.percentage;
     var y = b.percentage;
-    return ((x < y) ? 1 : (x > y) ? -1 : 0);
+    return ((x < y) ? 1 : (x > y) ? -1 : (x = 'NaN') ? -1 : (y = 'NaN') ? -1 : 0);
   });
 
   //generate images by results
   for(var i = 0; i < products.length; i++){
+    //check if not shown
+    if(products[i]['shown'] !== 0){
+
     //create Div
-    var divEl = document.createElement('div');;
-    divEl.setAttribute('class', 'product-results');
-    displayArea.appendChild(divEl);
+      var divEl = document.createElement('div');;
+      divEl.setAttribute('class', 'product-results');
+      displayArea.appendChild(divEl);
 
-    //create image
-    var imageResultEl = document.createElement('img');
-    imageResultEl.setAttribute('class', 'image-result');
-    imageResultEl.src = products[i]['image'];
-    divEl.appendChild(imageResultEl);
+      //create image
+      var imageResultEl = document.createElement('img');
+      imageResultEl.setAttribute('class', 'image-result');
+      imageResultEl.src = products[i]['image'];
+      divEl.appendChild(imageResultEl);
 
-    //create paragraph name
-    var paragraphElName = document.createElement('p');
-    paragraphElName.setAttribute('class', 'results-description');
-    paragraphElName.textContent = products[i]['name'];
-    divEl.appendChild(paragraphElName);
+      //create paragraph name
+      var paragraphElName = document.createElement('p');
+      paragraphElName.setAttribute('class', 'results-description');
+      paragraphElName.textContent = products[i]['name'];
+      divEl.appendChild(paragraphElName);
 
-    //create paragraph percentage
-    var paragraphElPercent = document.createElement('p');
-    paragraphElPercent.setAttribute('class', 'results-description');
-    paragraphElPercent.textContent = 'You chose this product ' + products[i]['percentage'] + '% of the time it was shown.';
-    divEl.appendChild(paragraphElPercent);
+      //create paragraph percentage
+      var paragraphElPercent = document.createElement('p');
+      paragraphElPercent.setAttribute('class', 'results-description');
+      paragraphElPercent.textContent = 'You chose this product ' + products[i]['percentage'] + '% of the time it was shown.';
+      divEl.appendChild(paragraphElPercent);
 
-    //create shown
-    var paragraphElShown = document.createElement('p');
-    paragraphElShown.setAttribute('class', 'results-description');
-    paragraphElShown.textContent = 'This was shown: ' + products[i]['shown'] + ' times.';
-    divEl.appendChild(paragraphElShown);
+      //create shown
+      var paragraphElShown = document.createElement('p');
+      paragraphElShown.setAttribute('class', 'results-description');
+      paragraphElShown.textContent = 'This was shown: ' + products[i]['shown'] + ' times.';
+      divEl.appendChild(paragraphElShown);
 
-    //create chosen
-    var paragraphElChosen = document.createElement('p');
-    paragraphElChosen.setAttribute('class', 'results-description');
-    paragraphElChosen.textContent = 'You chose this item: ' + products[i]['clicked'] + ' times.';
-    divEl.appendChild(paragraphElChosen);
+      //create chosen
+      var paragraphElChosen = document.createElement('p');
+      paragraphElChosen.setAttribute('class', 'results-description');
+      paragraphElChosen.textContent = 'You chose this item: ' + products[i]['clicked'] + ' times.';
+      divEl.appendChild(paragraphElChosen);
+    }
   }
 
 }
