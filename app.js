@@ -10,6 +10,13 @@ function Product(name, image){
   products.push(this);
 }
 
+function instructions(){
+  var bodyEl = document.createElement('p');
+  bodyEl.textContent = "Hello!  Thank you for participating in this Vault-Tek BusMall consumer survey!  We are going to show you a series of three pictures of exciting new Vault-Tek BusMall products.  Please choose the ONE you feel you would be most likely to buy of the three shown.  Don't worry, if you like more than one of these amazing products, they will appear again so you can choose them too.  Afterwards we will show you which products you liked the most!  You will not be judged in any way by your choices."
+  displayArea.appendChild(bodyEl);
+
+}
+
 function display(){
   var repeat = true;
   var previousRepeat1 = true;
@@ -158,23 +165,28 @@ function display(){
 }
 
 function handleClick(event){
-  //add to total clicks
-  totalClicks ++;
+  if(totalClicks < 25){
 
-  //add to clicked for displayed object
-  if(event.target.id === 'image1'){
-    products[number1].clicked ++;
-  } else if(event.target.id === 'image2'){
-    products[number2].clicked ++;
-  } else if(event.target.id === 'image3'){
-    products[number3].clicked ++;
+    //add to total clicks
+    totalClicks ++;
+
+    //add to clicked for displayed object
+    if(event.target.id === 'image1'){
+      products[number1].clicked ++;
+    } else if(event.target.id === 'image2'){
+      products[number2].clicked ++;
+    } else if(event.target.id === 'image3'){
+      products[number3].clicked ++;
+    }
+    console.log(event.target.id);
+
+    display();
   }
-  console.log(event.target.id);
-  display();
 }
 
 //variables=====================================================================
 
+//individual
 var totalClicks = 0;
 var number1 = 0;
 var number2 = 0;
@@ -209,4 +221,5 @@ var wineGlass = new Product('Designer Wine Glass', 'img/wine-glass.jpg');
 //elements
 var displayArea = document.getElementById('display-area');
 
+// instructions();
 display();
