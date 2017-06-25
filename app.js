@@ -10,11 +10,15 @@ function Product(name, image){
   products.push(this);
 }
 
-function instructions(){
-  var bodyEl = document.createElement('p');
-  bodyEl.textContent = "Hello!  Thank you for participating in this Vault-Tek BusMall consumer survey!  We are going to show you a series of three pictures of exciting new Vault-Tek BusMall products.  Please choose the ONE you feel you would be most likely to buy of the three shown.  Don't worry, if you like more than one of these amazing products, they will appear again so you can choose them too.  Afterwards we will show you which products you liked the most!  You will not be judged in any way by your choices."
-  displayArea.appendChild(bodyEl);
+function handleBegin(){
 
+  //remove instructions
+  var child = document.getElementById('instruction-page');
+  var parent = child.parentNode;
+  parent.removeChild(child);
+
+  //display first choices
+  display();
 }
 
 function display(){
@@ -220,6 +224,8 @@ var wineGlass = new Product('Designer Wine Glass', 'img/wine-glass.jpg');
 
 //elements
 var displayArea = document.getElementById('display-area');
+var beginButton = document.getElementById('instruction-page');
+beginButton.addEventListener('click', handleBegin);
 
 // instructions();
-display();
+//display();
