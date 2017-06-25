@@ -46,9 +46,49 @@ figcaption {
   text-align: center;
   background-color: white;
   border: 1px solid black;
+  border-radius: 5px;
 }
 
 .images {
   height: inherit;
   width: inherit;
+}
+
+#results-page {
+  background-image: url('img/vault-boy.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+#results-message {
+  font-size: 40px;
+  font-weight: bold;
+  width: 400px;
+  margin-left: 100px;
+  margin-top: 100px;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.product-results {
+  width: 500px;
+  height: 200px;
+  background-color: white;
+  border: 1px solid black;
+  margin-left: 20px;
+  margin-bottom: 30px;
+}
+
+.image-result {
+  width: 200px;
+  height: 200px;
+  float: left;
+  border-right: 1px solid black;
+  margin-right: 10px;
+}
+
+.results-description {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 15px;
+  font-weight: bold;
 }

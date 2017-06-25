@@ -8,6 +8,7 @@ function Product(name, image){
   this.image= image;
   this.shown = 0;
   this.clicked = 0;
+  this.percentage = 0;
   products.push(this);
 }
 
@@ -176,6 +177,7 @@ function handleClick(event){
 
     //add to total clicks
     totalClicks ++;
+    console.log('total clicks: ' + totalClicks);
 
     //add to clicked for displayed object
     if(event.target.id === 'image1'){
@@ -188,7 +190,86 @@ function handleClick(event){
     console.log(event.target.id);
 
     display();
+
+  } else {
+    results();
   }
+}
+
+//show results page
+function results(){
+  //change background-size
+  document.getElementById('display-area').id = 'results-page';
+
+  //remvove images
+  var child = document.getElementById('exhibit1');
+  var parent = child.parentNode;
+  parent.removeChild(child);
+
+  var child = document.getElementById('exhibit2');
+  var parent = child.parentNode;
+  parent.removeChild(child);
+
+  var child = document.getElementById('exhibit3');
+  var parent = child.parentNode;
+  parent.removeChild(child);
+
+  //add results message
+  var resultsMessageEl = document.createElement('p');
+  resultsMessageEl.setAttribute('id', 'results-message');
+  resultsMessageEl.textContent = 'Great job!  Now let\'s see which of these amazing products you liked the most!'
+  displayArea.appendChild(resultsMessageEl);
+
+  //calculate percentages
+  for(var i = 0; i < products.length; i++){
+    products[i].percentage = Math.round((products[i].clicked / products[i].shown) * 100);
+  }
+
+  //sort by highest percentage
+  products.sort(function(a,b){
+    var x = a.percentage;
+    var y = b.percentage;
+    return ((x < y) ? 1 : (x > y) ? -1 : 0);
+  });
+
+  //generate images by results
+  for(var i = 0; i < products.length; i++){
+    //create Div
+    var divEl = document.createElement('div');;
+    divEl.setAttribute('class', 'product-results');
+    displayArea.appendChild(divEl);
+
+    //create image
+    var imageResultEl = document.createElement('img');
+    imageResultEl.setAttribute('class', 'image-result');
+    imageResultEl.src = products[i]['image'];
+    divEl.appendChild(imageResultEl);
+
+    //create paragraph name
+    var paragraphElName = document.createElement('p');
+    paragraphElName.setAttribute('class', 'results-description');
+    paragraphElName.textContent = products[i]['name'];
+    divEl.appendChild(paragraphElName);
+
+    //create paragraph percentage
+    var paragraphElPercent = document.createElement('p');
+    paragraphElPercent.setAttribute('class', 'results-description');
+    paragraphElPercent.textContent = 'You chose this product ' + products[i]['percentage'] + '% of the time it was shown.';
+    divEl.appendChild(paragraphElPercent);
+
+    //create shown
+    var paragraphElShown = document.createElement('p');
+    paragraphElShown.setAttribute('class', 'results-description');
+    paragraphElShown.textContent = 'This was shown: ' + products[i]['shown'] + ' times.';
+    divEl.appendChild(paragraphElShown);
+
+    //create chosen
+    var paragraphElChosen = document.createElement('p');
+    paragraphElChosen.setAttribute('class', 'results-description');
+    paragraphElChosen.textContent = 'You chose this item: ' + products[i]['clicked'] + ' times.';
+    divEl.appendChild(paragraphElChosen);
+  }
+
 }
 
 //variables=====================================================================
