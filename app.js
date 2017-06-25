@@ -2,6 +2,7 @@
 
 //functions=====================================================================
 
+//object constructor
 function Product(name, image){
   this.name = name;
   this.image= image;
@@ -10,8 +11,8 @@ function Product(name, image){
   products.push(this);
 }
 
+//begin button
 function handleBegin(){
-
   //remove instructions
   var child = document.getElementById('instruction-page');
   var parent = child.parentNode;
@@ -21,6 +22,7 @@ function handleBegin(){
   display();
 }
 
+//products display
 function display(){
   var repeat = true;
   var previousRepeat1 = true;
@@ -168,6 +170,7 @@ function display(){
   productImage3.addEventListener('click', handleClick);
 }
 
+//on click function
 function handleClick(event){
   if(totalClicks < 25){
 
@@ -226,6 +229,3 @@ var wineGlass = new Product('Designer Wine Glass', 'img/wine-glass.jpg');
 var displayArea = document.getElementById('display-area');
 var beginButton = document.getElementById('instruction-page');
 beginButton.addEventListener('click', handleBegin);
-
-// instructions();
-//display();
