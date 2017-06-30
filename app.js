@@ -239,44 +239,41 @@ function results(){
 
   //generate images by results
   for(var i = 0; i < productsResults.length; i++){
-    //check if not shown
-    //if(productsResults[i]['shown'] !== 0){
+    //create Div
+    var divEl = document.createElement('div');;
+    divEl.setAttribute('class', 'product-results');
+    displayArea.appendChild(divEl);
 
-      //create Div
-      var divEl = document.createElement('div');;
-      divEl.setAttribute('class', 'product-results');
-      displayArea.appendChild(divEl);
+    //create image
+    var imageResultEl = document.createElement('img');
+    imageResultEl.setAttribute('class', 'image-result');
+    imageResultEl.src = productsResults[i]['image'];
+    divEl.appendChild(imageResultEl);
 
-      //create image
-      var imageResultEl = document.createElement('img');
-      imageResultEl.setAttribute('class', 'image-result');
-      imageResultEl.src = productsResults[i]['image'];
-      divEl.appendChild(imageResultEl);
+    //create paragraph name
+    var paragraphElName = document.createElement('p');
+    paragraphElName.setAttribute('class', 'results-description');
+    paragraphElName.textContent = productsResults[i]['name'];
+    divEl.appendChild(paragraphElName);
 
-      //create paragraph name
-      var paragraphElName = document.createElement('p');
-      paragraphElName.setAttribute('class', 'results-description');
-      paragraphElName.textContent = productsResults[i]['name'];
-      divEl.appendChild(paragraphElName);
+    //create paragraph percentage
+    var paragraphElPercent = document.createElement('p');
+    paragraphElPercent.setAttribute('class', 'results-description');
+    paragraphElPercent.textContent = 'You chose this product ' + productsResults[i]['percentage'] + '% of the time it was shown.';
+    divEl.appendChild(paragraphElPercent);
 
-      //create paragraph percentage
-      var paragraphElPercent = document.createElement('p');
-      paragraphElPercent.setAttribute('class', 'results-description');
-      paragraphElPercent.textContent = 'You chose this product ' + productsResults[i]['percentage'] + '% of the time it was shown.';
-      divEl.appendChild(paragraphElPercent);
+    //create shown
+    var paragraphElShown = document.createElement('p');
+    paragraphElShown.setAttribute('class', 'results-description');
+    paragraphElShown.textContent = 'This was shown: ' + productsResults[i]['shown'] + ' times.';
+    divEl.appendChild(paragraphElShown);
 
-      //create shown
-      var paragraphElShown = document.createElement('p');
-      paragraphElShown.setAttribute('class', 'results-description');
-      paragraphElShown.textContent = 'This was shown: ' + productsResults[i]['shown'] + ' times.';
-      divEl.appendChild(paragraphElShown);
+    //create chosen
+    var paragraphElChosen = document.createElement('p');
+    paragraphElChosen.setAttribute('class', 'results-description');
+    paragraphElChosen.textContent = 'You chose this item: ' + productsResults[i]['clicked'] + ' times.';
+    divEl.appendChild(paragraphElChosen);
 
-      //create chosen
-      var paragraphElChosen = document.createElement('p');
-      paragraphElChosen.setAttribute('class', 'results-description');
-      paragraphElChosen.textContent = 'You chose this item: ' + productsResults[i]['clicked'] + ' times.';
-      divEl.appendChild(paragraphElChosen);
-    //}
   }
 
   //create chart div
@@ -294,10 +291,8 @@ function results(){
   var productNames = [];
 
   for(var i = 0; i < productsResults.length; i++){
-    //if(products[i]['shown'] !== 0){
-      dataSet.push(productsResults[i]['percentage']);
-      productNames.push(productsResults[i]['name']);
-    //}
+    dataSet.push(productsResults[i]['percentage']);
+    productNames.push(productsResults[i]['name']);
   }
 
   var resultsChart = new Chart(context, {

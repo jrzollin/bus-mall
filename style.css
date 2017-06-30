@@ -40,6 +40,12 @@ button {
   margin-top: 240px;
   border:2px solid black;
   display: inline-block;
+  transition: width .25s linear, height .25s linear;
+}
+
+.exhibit:hover {
+  width: 300px;
+  height: 300px;
 }
 
 figcaption {
@@ -78,6 +84,12 @@ figcaption {
   border: 3px solid black;
   margin-left: 20px;
   margin-bottom: 30px;
+  transition: width .25s linear, height .25s linear;
+}
+
+.product-results:hover {
+  width: 700px;
+  height: 300px;
 }
 
 .image-result {
