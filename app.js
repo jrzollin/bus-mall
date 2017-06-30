@@ -272,6 +272,15 @@ function results(){
     }
   }
 
+  //create chart div
+  var chartDivEl = document.createElement('div');
+  chartDivEl.setAttribute('class', 'chart-div');
+  displayArea.appendChild(chartDivEl);
+
+  //create chart
+  var chartEl = document.createElement('canvas');
+  chartEl.setAttribute('id', 'results-chart');
+  chartDivEl.appendChild(chartEl);
 }
 
 //variables=====================================================================
