@@ -19,6 +19,12 @@ function handleBegin(){
   var parent = child.parentNode;
   parent.removeChild(child);
 
+  //check for local storage
+  if(localStorage.results){
+    var productsString = localStorage.results;
+    products = JSON.parse(productsString);
+  }
+
   //display first choices
   display();
 }
@@ -190,8 +196,17 @@ function handleClick(event){
     }
     console.log(event.target.id);
 
+    //save to local storage
+    saveToLocalStorage(products);
+
     //rerun display
     display();
+}
+
+//save data to local storage function
+function saveToLocalStorage(products){
+  var productsString = JSON.stringify(products);
+  localStorage.results = productsString;
 }
 
 //show results page
@@ -333,26 +348,28 @@ var previousDisplay = [];
 var productsResults = [];
 
 //products
-var bag = new Product('R2D2 bag', 'img/bag.jpg');
-var banana = new Product('Banana Slicer', 'img/banana.jpg');
-var bathroom = new Product('Bathroom Stand', 'img/bathroom.jpg');
-var boots = new Product('Toeless Boots', 'img/boots.jpg');
-var breakfast = new Product('Breakfast Maker', 'img/breakfast.jpg');
-var bubblegum = new Product('Meatball Bubble Gum', 'img/bubblegum.jpg');
-var chair = new Product('"Comfortable" Chair', 'img/chair.jpg');
-var cthulhu = new Product('Cthulhu Action Figure', 'img/cthulhu.jpg');
-var dogDuck = new Product('Dog-Duck Mask', 'img/dog-duck.jpg');
-var dragon = new Product('Dragon Meat', 'img/dragon.jpg');
-var pen = new Product('Utensil Pen Caps', 'img/pen.jpg');
-var petSweep = new Product('Pet Sweep', 'img/pet-sweep.jpg');
-var scissors = new Product('Pizza Scissors', 'img/scissors.jpg');
-var shark = new Product('Shark Sleeping Bag', 'img/shark.jpg');
-var sweep = new Product('Baby Sweep Onesie', 'img/sweep.png');
-var tauntaun = new Product('Tauntaun Sleeping Bag', 'img/tauntaun.jpg');
-var unicorn = new Product('Unicorn Meat', 'img/unicorn.jpg');
-var usb = new Product('Tentacle Flash Drive', 'img/usb.gif');
-var waterCan = new Product('Self Filling Water Can', 'img/water-can.jpg');
-var wineGlass = new Product('Designer Wine Glass', 'img/wine-glass.jpg');
+if(products.length === 0){
+  var bag = new Product('R2D2 bag', 'img/bag.jpg');
+  var banana = new Product('Banana Slicer', 'img/banana.jpg');
+  var bathroom = new Product('Bathroom Stand', 'img/bathroom.jpg');
+  var boots = new Product('Toeless Boots', 'img/boots.jpg');
+  var breakfast = new Product('Breakfast Maker', 'img/breakfast.jpg');
+  var bubblegum = new Product('Meatball Bubble Gum', 'img/bubblegum.jpg');
+  var chair = new Product('"Comfortable" Chair', 'img/chair.jpg');
+  var cthulhu = new Product('Cthulhu Action Figure', 'img/cthulhu.jpg');
+  var dogDuck = new Product('Dog-Duck Mask', 'img/dog-duck.jpg');
+  var dragon = new Product('Dragon Meat', 'img/dragon.jpg');
+  var pen = new Product('Utensil Pen Caps', 'img/pen.jpg');
+  var petSweep = new Product('Pet Sweep', 'img/pet-sweep.jpg');
+  var scissors = new Product('Pizza Scissors', 'img/scissors.jpg');
+  var shark = new Product('Shark Sleeping Bag', 'img/shark.jpg');
+  var sweep = new Product('Baby Sweep Onesie', 'img/sweep.png');
+  var tauntaun = new Product('Tauntaun Sleeping Bag', 'img/tauntaun.jpg');
+  var unicorn = new Product('Unicorn Meat', 'img/unicorn.jpg');
+  var usb = new Product('Tentacle Flash Drive', 'img/usb.gif');
+  var waterCan = new Product('Self Filling Water Can', 'img/water-can.jpg');
+  var wineGlass = new Product('Designer Wine Glass', 'img/wine-glass.jpg');
+};
 
 //elements
 var displayArea = document.getElementById('display-area');
