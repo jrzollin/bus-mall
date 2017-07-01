@@ -218,58 +218,62 @@ function results(){
   resultsMessageEl.textContent = 'Great job!  Now let\'s see which of these amazing products you liked the most!'
   displayArea.appendChild(resultsMessageEl);
 
-  //calculate percentages
+  //push shown images to new array
   for(var i = 0; i < products.length; i++){
-    products[i].percentage = Math.round((products[i].clicked / products[i].shown) * 100);
+    if(products[i]['shown'] !== 0){
+      productsResults.push(products[i]);
+    }
+  }
+
+  //calculate percentages
+  for(var i = 0; i < productsResults.length; i++){
+    productsResults[i].percentage = Math.round((productsResults[i].clicked / productsResults[i].shown) * 100);
   }
 
   //sort by highest percentage
-  products.sort(function(a,b){
+  productsResults.sort(function(a,b){
     var x = a.percentage;
     var y = b.percentage;
     return ((x < y) ? 1 : (x > y) ? -1 : (x = 'NaN') ? -1 : (y = 'NaN') ? -1 : 0);
   });
 
   //generate images by results
-  for(var i = 0; i < products.length; i++){
-    //check if not shown
-    if(products[i]['shown'] !== 0){
+  for(var i = 0; i < productsResults.length; i++){
+    //create Div
+    var divEl = document.createElement('div');;
+    divEl.setAttribute('class', 'product-results');
+    displayArea.appendChild(divEl);
 
-      //create Div
-      var divEl = document.createElement('div');;
-      divEl.setAttribute('class', 'product-results');
-      displayArea.appendChild(divEl);
+    //create image
+    var imageResultEl = document.createElement('img');
+    imageResultEl.setAttribute('class', 'image-result');
+    imageResultEl.src = productsResults[i]['image'];
+    divEl.appendChild(imageResultEl);
 
-      //create image
-      var imageResultEl = document.createElement('img');
-      imageResultEl.setAttribute('class', 'image-result');
-      imageResultEl.src = products[i]['image'];
-      divEl.appendChild(imageResultEl);
+    //create paragraph name
+    var paragraphElName = document.createElement('p');
+    paragraphElName.setAttribute('class', 'results-description');
+    paragraphElName.textContent = productsResults[i]['name'];
+    divEl.appendChild(paragraphElName);
 
-      //create paragraph name
-      var paragraphElName = document.createElement('p');
-      paragraphElName.setAttribute('class', 'results-description');
-      paragraphElName.textContent = products[i]['name'];
-      divEl.appendChild(paragraphElName);
+    //create paragraph percentage
+    var paragraphElPercent = document.createElement('p');
+    paragraphElPercent.setAttribute('class', 'results-description');
+    paragraphElPercent.textContent = 'You chose this product ' + productsResults[i]['percentage'] + '% of the time it was shown.';
+    divEl.appendChild(paragraphElPercent);
 
-      //create paragraph percentage
-      var paragraphElPercent = document.createElement('p');
-      paragraphElPercent.setAttribute('class', 'results-description');
-      paragraphElPercent.textContent = 'You chose this product ' + products[i]['percentage'] + '% of the time it was shown.';
-      divEl.appendChild(paragraphElPercent);
+    //create shown
+    var paragraphElShown = document.createElement('p');
+    paragraphElShown.setAttribute('class', 'results-description');
+    paragraphElShown.textContent = 'This was shown: ' + productsResults[i]['shown'] + ' times.';
+    divEl.appendChild(paragraphElShown);
 
-      //create shown
-      var paragraphElShown = document.createElement('p');
-      paragraphElShown.setAttribute('class', 'results-description');
-      paragraphElShown.textContent = 'This was shown: ' + products[i]['shown'] + ' times.';
-      divEl.appendChild(paragraphElShown);
+    //create chosen
+    var paragraphElChosen = document.createElement('p');
+    paragraphElChosen.setAttribute('class', 'results-description');
+    paragraphElChosen.textContent = 'You chose this item: ' + productsResults[i]['clicked'] + ' times.';
+    divEl.appendChild(paragraphElChosen);
 
-      //create chosen
-      var paragraphElChosen = document.createElement('p');
-      paragraphElChosen.setAttribute('class', 'results-description');
-      paragraphElChosen.textContent = 'You chose this item: ' + products[i]['clicked'] + ' times.';
-      divEl.appendChild(paragraphElChosen);
-    }
   }
 
   //create chart div
@@ -281,6 +285,38 @@ function results(){
   var chartEl = document.createElement('canvas');
   chartEl.setAttribute('id', 'results-chart');
   chartDivEl.appendChild(chartEl);
+
+  var context = document.getElementById('results-chart').getContext('2d');
+  var dataSet = [];
+  var productNames = [];
+
+  for(var i = 0; i < productsResults.length; i++){
+    dataSet.push(productsResults[i]['percentage']);
+    productNames.push(productsResults[i]['name']);
+  }
+
+  var resultsChart = new Chart(context, {
+    type: 'bar',
+    data: {
+      labels: productNames,
+      datasets: [{
+        label: 'Your Choices',
+        data: dataSet,
+        backgroundColor: 'blue'
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+
+
 }
 
 //variables=====================================================================
@@ -294,6 +330,7 @@ var number3 = 0;
 //arrays
 var products = [];
 var previousDisplay = [];
+var productsResults = [];
 
 //products
 var bag = new Product('R2D2 bag', 'img/bag.jpg');
@@ -301,7 +338,7 @@ var banana = new Product('Banana Slicer', 'img/banana.jpg');
 var bathroom = new Product('Bathroom Stand', 'img/bathroom.jpg');
 var boots = new Product('Toeless Boots', 'img/boots.jpg');
 var breakfast = new Product('Breakfast Maker', 'img/breakfast.jpg');
-var bubblegum = new Product('Meatball Bubblegum', 'img/bubblegum.jpg');
+var bubblegum = new Product('Meatball Bubble Gum', 'img/bubblegum.jpg');
 var chair = new Product('"Comfortable" Chair', 'img/chair.jpg');
 var cthulhu = new Product('Cthulhu Action Figure', 'img/cthulhu.jpg');
 var dogDuck = new Product('Dog-Duck Mask', 'img/dog-duck.jpg');
