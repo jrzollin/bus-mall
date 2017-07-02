@@ -373,5 +373,5 @@ if(products.length === 0){
 
 //elements
 var displayArea = document.getElementById('display-area');
-var beginButton = document.getElementById('instruction-page');
+var beginButton = document.getElementById('begin');
 beginButton.addEventListener('click', handleBegin);
